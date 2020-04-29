@@ -1,0 +1,85 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+using namespace std;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+struct rekord
+{
+	string marka, model;
+	int id;	
+};
+
+class TOWAR 
+{
+		vector <struct rekord> wynik;
+	public:
+		void wczytaj();
+		void wypisz();
+		int cena, id;
+		string nazwa;
+};
+
+class BUTY
+{
+
+	public:
+		int rozmiar;
+		string marka, model;
+	
+};
+
+class PASTY
+{
+
+	public:
+		string kolor;
+	
+};
+
+void TOWAR::wczytaj()
+{
+    ifstream plik;
+    plik.open("towary.txt");
+    if (! plik) cout<<"Brak podanego pliku, sprobuj ponownie\n";
+
+    int s = 0;
+    vector<string> elo;
+    ifstream plik2("towary.txt");
+    string l;
+    while (getline(plik2, l)) elo.push_back(l);
+    for (int i = 0; i < elo.size(); i++) s++;
+    plik2.close();
+    
+    cout<<"ID:"<<"  "<<"  Marka:"<<"    "<<"Model: "<<"        "<<"Kolor: "<<"         "<<"Cena: \n";
+    
+    for (int i=0; i<elo.size(); i++)
+    {
+      cout<< i<<"      "<<elo[i]<<endl;
+    }
+	
+}
+
+
+
+void TOWAR::wypisz()
+{
+        ofstream plik3;
+        plik3.open("wyniki.txt");
+        for (vector<struct rekord>::iterator it = wynik.begin(); it != wynik.end(); ++it)
+        {
+                plik3 << it->model << " "
+                         << it->id << " "
+                         << it->marka << "\n";
+        }
+        plik3.close(); 
+}
+
+int main(int argc, char** argv) {
+	
+	TOWAR PG;
+	PG.wczytaj();
+	PG.wypisz();
+	return 0;
+}
